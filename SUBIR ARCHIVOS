@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir y Descargar Archivos</title>
+</head>
+<body>
+    <h2>Subir un Archivo</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Subir</button>
+    
+    <h2>Archivos Disponibles</h2>
+    <ul id="fileList"></ul>
+
+    <script>
+        let files = [];
+        
+        function uploadFile() {
+            const input = document.getElementById('fileInput');
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                files.push(file);
+                updateFileList();
+            }
+        }
+        
+        function updateFileList() {
+            const list = document.getElementById('fileList');
+            list.innerHTML = '';
+            files.forEach((file, index) => {
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(file);
+                link.download = file.name;
+                link.textContent = file.name;
+                li.appendChild(link);
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
